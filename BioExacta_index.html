@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="format-detection" content="telephone=no">
 
   <title>BioExacta Brochures</title>
 
@@ -39,28 +38,53 @@
       font-size: 15px;
     }
 
-    .button {
-      display: block;
-      width: 100%;
-      padding: 18px 16px;
-      margin: 14px 0;
-      background: white;
-      border-radius: 12px;
-      text-decoration: none;
-      color: #222;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 16px 0;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button {
+      flex: 1;
+      padding: 14px 8px;
+      border-radius: 9px;
+      text-decoration: none;
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .view {
+      background: #f0f2f5;
+      color: #222;
+    }
+
+    .download {
+      background: #222;
+      color: #fff;
+    }
+
     .button:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     .footer {
       text-align: center;
-      margin-top: 35px;
+      margin-top: 30px;
       color: #999;
       font-size: 13px;
     }
@@ -77,25 +101,90 @@
     Product Brochures
   </div>
 
-  <a class="button"
-     href="./BioExacta_index-cellfree.html">
-    Cell-Free Protein Synthesis
-  </a>
 
-  <a class="button"
-     href="./BioExacta_index-gmp.html">
-    GMP
-  </a>
+  <!-- Cell-Free -->
+  <div class="card">
+    <div class="title">
+      Cell-Free Protein Synthesis
+    </div>
 
-  <a class="button"
-     href="./BioExacta_index-mrna.html">
-    mRNA
-  </a>
+    <div class="buttons">
+      <a class="button view"
+         href="./BioExacta_index-cellfree.html">
+        在线查看
+      </a>
 
-  <a class="button"
-     href="./BioExacta_index-teaser.html">
-    Teaser
-  </a>
+      <a class="button download"
+         href="./Cell-Free.pdf"
+         download>
+        下载 PDF
+      </a>
+    </div>
+  </div>
+
+
+  <!-- GMP -->
+  <div class="card">
+    <div class="title">
+      GMP
+    </div>
+
+    <div class="buttons">
+      <a class="button view"
+         href="./BioExacta_index-gmp.html">
+        在线查看
+      </a>
+
+      <a class="button download"
+         href="./GMP.pdf"
+         download>
+        下载 PDF
+      </a>
+    </div>
+  </div>
+
+
+  <!-- mRNA -->
+  <div class="card">
+    <div class="title">
+      mRNA
+    </div>
+
+    <div class="buttons">
+      <a class="button view"
+         href="./BioExacta_index-mrna.html">
+        在线查看
+      </a>
+
+      <a class="button download"
+         href="./mRNA.pdf"
+         download>
+        下载 PDF
+      </a>
+    </div>
+  </div>
+
+
+  <!-- Teaser -->
+  <div class="card">
+    <div class="title">
+      Teaser
+    </div>
+
+    <div class="buttons">
+      <a class="button view"
+         href="./BioExacta_index-teaser.html">
+        在线查看
+      </a>
+
+      <a class="button download"
+         href="./Teaser.pdf"
+         download>
+        下载 PDF
+      </a>
+    </div>
+  </div>
+
 
   <div class="footer">
     BioExacta
