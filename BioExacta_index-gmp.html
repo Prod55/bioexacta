@@ -3,28 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GMP-Grade Enzymes Brochure</title>
+
+<title>BioExacta - GMP</title>
+
 <style>
+* { box-sizing: border-box; }
+
 html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #fff;
+    background: #eeeeee;
 }
-iframe {
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#status {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #555;
+}
+
+#pdf-container {
+    width: 100%;
+    padding: 10px 0 30px;
+}
+
+.pdf-page {
+    width: min(100%, 1200px);
+    margin: 0 auto 12px;
+    background: white;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.18);
+}
+
+.pdf-page canvas {
     display: block;
     width: 100%;
-    height: 100vh;
-    border: 0;
+    height: auto;
+}
+
+#error {
+    display: none;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 25px;
+    background: white;
+    text-align: center;
+}
+
+#error a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
 }
 </style>
 </head>
+
 <body>
-<iframe src="./GMP.pdf#view=FitH" title="GMP-Grade Enzymes Brochure">
-    <p>Your browser cannot preview this PDF.
-    <a href="./GMP.pdf">Open the PDF</a></p>
-</iframe>
+
+<div id="status">正在加载 PDF，请稍候……</div>
+
+<div id="pdf-container"></div>
+
+<div id="error">
+    <p>PDF 页面加载失败。</p>
+    <a href="./GMP.pdf">直接打开完整 PDF</a>
+</div>
+
+<script type="module">
+
+import * as pdfjsLib from
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+
+const PDF_FILE = "./GMP.pdf";
+
+const container = document.getElementById("pdf-container");
+const status = document.getElementById("status");
+const errorBox = document.getElementById("error");
+
+async function loadPDF() {
+
+    try {
+
+        const pdf =
+            await pdfjsLib.getDocument({
+                url: PDF_FILE
+            }).promise;
+
+        status.textContent =
+            "GMP · 共 " + pdf.numPages + " 页";
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+
+            const page =
+                await pdf.getPage(pageNumber);
+
+            const pageBox =
+                document.createElement("div");
+
+            pageBox.className = "pdf-page";
+
+            container.appendChild(pageBox);
+
+            const base =
+                page.getViewport({ scale: 1 });
+
+            const screenWidth =
+                Math.min(window.innerWidth, 1200);
+
+            const scale =
+                screenWidth / base.width;
+
+            const viewport =
+                page.getViewport({ scale });
+
+            const canvas =
+                document.createElement("canvas");
+
+            const context =
+                canvas.getContext("2d", {
+                    alpha: false
+                });
+
+            const ratio =
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    2
+                );
+
+            canvas.width =
+                Math.floor(viewport.width * ratio);
+
+            canvas.height =
+                Math.floor(viewport.height * ratio);
+
+            canvas.style.width =
+                viewport.width + "px";
+
+            canvas.style.height =
+                viewport.height + "px";
+
+            pageBox.appendChild(canvas);
+
+            await page.render({
+                canvasContext: context,
+                viewport: viewport,
+                transform: [
+                    ratio, 0, 0,
+                    ratio, 0, 0
+                ]
+            }).promise;
+        }
+
+        status.textContent =
+            "GMP · 全部 " +
+            pdf.numPages +
+            " 页已加载";
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "PDF 加载失败";
+
+        errorBox.style.display = "block";
+    }
+}
+
+loadPDF();
+
+</script>
+
 </body>
 </html>
