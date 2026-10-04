@@ -7,105 +7,61 @@
 <title>BioExacta | CPHI Milan 2026</title>
 
 <style>
-* {
-    box-sizing: border-box;
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    padding:32px;
+    background:#fff;
+    color:#222;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    background: #ffffff;
-    color: #222222;
-    font-family: Arial, Helvetica, sans-serif;
+main{
+    max-width:720px;
+    margin:auto;
 }
 
-main {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 45px 24px 60px;
+h1{
+    margin:0 0 8px;
+    font-size:32px;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 40px;
+.subtitle{
+    color:#666;
+    margin-bottom:28px;
+    font-size:16px;
 }
 
-.logo {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
+a{
+    display:block;
+    padding:18px 20px;
+    margin:12px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    text-decoration:none;
+    color:#222;
+    background:#fff;
+    transition:background .2s;
 }
 
-.subtitle {
-    font-size: 16px;
-    color: #666666;
-    line-height: 1.5;
+a:hover{
+    background:#f5f5f5;
 }
 
-.materials {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+.company{
+    border:2px solid #1f405f;
+    background:#f7fafc;
 }
 
-.material {
-    display: block;
-    padding: 20px 22px;
-    border: 1px solid #dddddd;
-    border-radius: 10px;
-    background: #ffffff;
-    color: #222222;
-    text-decoration: none;
-    transition: all 0.2s ease;
+.title{
+    font-weight:bold;
+    font-size:18px;
 }
 
-.material:hover {
-    background: #f7f7f7;
-    border-color: #bbbbbb;
-    transform: translateY(-1px);
-}
-
-.material-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.material-description {
-    font-size: 14px;
-    color: #777777;
-    line-height: 1.5;
-}
-
-.footer {
-    margin-top: 45px;
-    text-align: center;
-    font-size: 13px;
-    color: #999999;
-    line-height: 1.6;
-}
-
-@media (max-width: 600px) {
-    main {
-        padding: 30px 16px 45px;
-    }
-
-    .logo {
-        font-size: 28px;
-    }
-
-    .subtitle {
-        font-size: 14px;
-    }
-
-    .material {
-        padding: 18px;
-    }
-
-    .material-title {
-        font-size: 17px;
-    }
+.desc{
+    display:block;
+    margin-top:5px;
+    font-size:14px;
+    color:#666;
 }
 </style>
 </head>
@@ -114,72 +70,32 @@ main {
 
 <main>
 
-    <div class="header">
-        <div class="logo">BioExacta</div>
+<h1>BioExacta</h1>
 
-        <div class="subtitle">
-            CPHI Milan 2026 — Company &amp; Product Materials
-        </div>
-    </div>
+<div class="subtitle">
+CPHI Milan 2026 — Company &amp; Product Materials
+</div>
 
-    <div class="materials">
+<a class="company" href="./index-company.html">
+    <span class="title">BioExacta Company Introduction</span>
+    <span class="desc">Company &amp; Portfolio Overview</span>
+</a>
 
-        <!-- Company Introduction -->
-        <a class="material" href="./index-company.html">
-            <div class="material-title">
-                BioExacta Company Introduction
-            </div>
-            <div class="material-description">
-                Company &amp; Portfolio Overview
-            </div>
-        </a>
+<a href="./BioExacta_index-cellfree.html">
+    Cell-Free Protein Synthesis Kit
+</a>
 
-        <!-- Cell-Free Protein Synthesis -->
-        <a class="material" href="./index-cellfree.html">
-            <div class="material-title">
-                Cell-Free Protein Synthesis Kit
-            </div>
-            <div class="material-description">
-                Product brochure
-            </div>
-        </a>
+<a href="./BioExacta_index-gmp.html">
+    GMP-Grade Enzymes
+</a>
 
-        <!-- GMP-Grade Enzymes -->
-        <a class="material" href="./index-gmp.html">
-            <div class="material-title">
-                GMP-Grade Enzymes
-            </div>
-            <div class="material-description">
-                Product brochure
-            </div>
-        </a>
+<a href="./BioExacta_index-mrna.html">
+    mRNA In-vitro Synthesis
+</a>
 
-        <!-- mRNA In-vitro Synthesis -->
-        <a class="material" href="./index-mrna.html">
-            <div class="material-title">
-                mRNA In-vitro Synthesis
-            </div>
-            <div class="material-description">
-                Product brochure
-            </div>
-        </a>
-
-        <!-- Product Teaser -->
-        <a class="material" href="./index-teaser.html">
-            <div class="material-title">
-                BioExacta Product Teaser
-            </div>
-            <div class="material-description">
-                Product overview
-            </div>
-        </a>
-
-    </div>
-
-    <div class="footer">
-        BioExacta Enzymes<br>
-        Molecular Biology Enzymes and Reagents
-    </div>
+<a href="./BioExacta_index-teaser.html">
+    BioExacta Product Teaser
+</a>
 
 </main>
 
