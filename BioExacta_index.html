@@ -2,102 +2,685 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#104E73">
 
 <title>BioExacta | CPHI Milan 2026</title>
 
 <style>
+:root{
+  --navy:#104E73;
+  --navy-dark:#0B3D5B;
+  --cyan:#57B6BF;
+  --cyan-soft:#E8F6F7;
+  --text:#104E73;
+  --muted:#607D8B;
+  --line:#CBE8EA;
+  --bg:#F7FAFB;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  margin:0 !important;
+  padding:0 !important;
+  background:var(--navy);
+  scroll-behavior:smooth;
+}
+
 body{
-    font-family:Arial,sans-serif;
-    margin:0;
-    padding:32px;
-    background:#fff;
-    color:#222;
-}
-
-main{
-    max-width:720px;
-    margin:auto;
-}
-
-h1{
-    margin:0 0 8px;
-    font-size:32px;
-}
-
-.subtitle{
-    color:#666;
-    margin-bottom:28px;
-    font-size:16px;
+  margin:0 !important;
+  padding:0 !important;
+  color:var(--text);
+  background:var(--navy);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
 
 a{
-    display:block;
-    padding:18px 20px;
-    margin:12px 0;
-    border:1px solid #ddd;
-    border-radius:10px;
-    text-decoration:none;
-    color:#222;
-    background:#fff;
-    transition:background .2s;
+  color:inherit;
+  text-decoration:none;
 }
 
-a:hover{
-    background:#f5f5f5;
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:680px;
+  margin:0;
+  padding:0 28px 64px;
+  border:0;
+  background:var(--navy);
+  color:#fff;
 }
 
-.company{
-    border:2px solid #1f405f;
-    background:#f7fafc;
+.hero:before{
+  content:"";
+  position:absolute;
+
+  width:620px;
+  height:620px;
+
+  right:-300px;
+  top:-230px;
+
+  border:2px solid rgba(87,182,191,.25);
+  border-radius:50%;
 }
 
-.title{
-    font-weight:bold;
-    font-size:18px;
+.hero:after{
+  content:"";
+  position:absolute;
+
+  width:420px;
+  height:420px;
+
+  left:-270px;
+  bottom:-260px;
+
+  border-radius:50%;
+  background:rgba(7,48,72,.18);
 }
 
-.desc{
-    display:block;
-    margin-top:5px;
-    font-size:14px;
-    color:#666;
+.hero-inner{
+  position:relative;
+  z-index:2;
+
+  max-width:1180px;
+  margin:0 auto;
+
+  padding-top:58px;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+  display:block;
+
+  width:min(430px,88%);
+  height:auto;
+
+  margin:0 0 72px;
+
+  border:0;
+  outline:0;
+  box-shadow:none;
+  background:transparent;
+}
+
+
+/* =========================
+   HERO TEXT
+========================= */
+
+.kicker{
+  margin:0 0 18px;
+
+  color:var(--cyan);
+
+  font-size:15px;
+  line-height:1.2;
+  font-weight:800;
+
+  letter-spacing:.22em;
+}
+
+h1{
+  max-width:820px;
+
+  margin:0;
+
+  font-size:clamp(42px,8vw,82px);
+  line-height:.98;
+
+  letter-spacing:-.045em;
+  font-weight:750;
+}
+
+.hero-copy{
+  max-width:850px;
+
+  margin:34px 0 0;
+
+  color:rgba(255,255,255,.9);
+
+  font-size:clamp(19px,3vw,30px);
+  line-height:1.55;
+}
+
+.accent{
+  width:150px;
+  height:8px;
+
+  margin-top:48px;
+
+  border-radius:999px;
+
+  background:var(--cyan);
+}
+
+
+/* =========================
+   MATERIALS
+========================= */
+
+.materials{
+  max-width:1180px;
+
+  margin:0 auto;
+
+  padding:72px 28px 90px;
+
+  background:var(--bg);
+}
+
+.section-title{
+  margin:0;
+
+  font-size:clamp(38px,6vw,62px);
+  line-height:1.05;
+
+  letter-spacing:-.035em;
+}
+
+.section-subtitle{
+  margin:18px 0 46px;
+
+  color:var(--muted);
+
+  font-size:clamp(18px,2.8vw,25px);
+  line-height:1.55;
+}
+
+
+/* =========================
+   PRODUCT CARDS
+========================= */
+
+.grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:22px;
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+
+  min-height:285px;
+
+  padding:34px 34px 30px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+  border-radius:24px;
+
+  box-shadow:
+    0 12px 35px rgba(16,78,115,.07);
+}
+
+.card:before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:7px;
+
+  background:var(--cyan);
+}
+
+.card.product:before{
+  background:var(--navy);
+}
+
+.tag{
+  display:inline-block;
+
+  padding:9px 16px;
+
+  border-radius:999px;
+
+  background:var(--cyan-soft);
+
+  color:var(--navy);
+
+  font-size:13px;
+  font-weight:800;
+
+  letter-spacing:.15em;
+}
+
+.card h2{
+  margin:25px 0 13px;
+
+  font-size:clamp(25px,3vw,35px);
+  line-height:1.12;
+
+  letter-spacing:-.025em;
+}
+
+.card p{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:17px;
+  line-height:1.55;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:27px;
+}
+
+.btn{
+  min-height:50px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:12px 22px;
+
+  border-radius:13px;
+
+  border:2px solid var(--navy);
+
+  font-size:16px;
+  font-weight:750;
+}
+
+.btn.primary{
+  background:var(--navy);
+  color:#fff;
+}
+
+.btn.secondary{
+  background:#fff;
+  color:var(--navy);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  padding:28px;
+
+  background:var(--navy-dark);
+
+  color:rgba(255,255,255,.72);
+
+  text-align:center;
+
+  font-size:13px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:720px){
+
+  .hero{
+    min-height:auto;
+
+    padding:
+      0
+      36px
+      58px;
+  }
+
+  .hero-inner{
+    padding-top:36px;
+  }
+
+  .logo{
+    width:100%;
+    max-width:430px;
+
+    margin-bottom:70px;
+  }
+
+  .hero-copy{
+    font-size:20px;
+    line-height:1.6;
+  }
+
+  .materials{
+    padding:
+      58px
+      32px
+      72px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+
+    gap:18px;
+  }
+
+  .card{
+    min-height:0;
+
+    padding:
+      30px
+      28px
+      27px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:721px){
+
+  .hero{
+    padding-left:7vw;
+    padding-right:7vw;
+  }
+
+  .materials{
+    padding-left:7vw;
+    padding-right:7vw;
+  }
 }
 </style>
 </head>
 
+
 <body>
 
-<main>
+<!-- =========================
+     HERO
+========================= -->
 
-<h1>BioExacta</h1>
+<header class="hero">
 
-<div class="subtitle">
-CPHI Milan 2026 — Company &amp; Product Materials
-</div>
+  <div class="hero-inner">
 
-<a class="company" href="./index-company.html">
-    <span class="title">BioExacta Company Introduction</span>
-    <span class="desc">Company &amp; Portfolio Overview</span>
-</a>
+    <!--
+      BioExacta Logo is embedded directly in this HTML.
+      No separate logo file is required.
+    -->
 
-<a href="./BioExacta_index-cellfree.html">
-    Cell-Free Protein Synthesis Kit
-</a>
+    <img
+      class="logo"
+      alt="BioExacta Enzymes"
+      src="这里放我给你的最终版 HTML 中已经内嵌的 Logo 数据"
+    >
 
-<a href="./BioExacta_index-gmp.html">
-    GMP-Grade Enzymes
-</a>
+    <p class="kicker">
+      CPHI MILAN 2026
+    </p>
 
-<a href="./BioExacta_index-mrna.html">
-    mRNA In-vitro Synthesis
-</a>
+    <h1>
+      Company &amp; Product<br>
+      Materials
+    </h1>
 
-<a href="./BioExacta_index-teaser.html">
-    BioExacta Product Teaser
-</a>
+    <p class="hero-copy">
+      Explore BioExacta Enzymes company information,
+      product portfolios and technical materials.
+    </p>
+
+    <div class="accent"></div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     MATERIALS
+========================= -->
+
+<main class="materials">
+
+  <h2 class="section-title">
+    BioExacta Materials
+  </h2>
+
+  <p class="section-subtitle">
+    Browse the materials online or download the original PDF files.
+  </p>
+
+
+  <section class="grid">
+
+
+    <!-- COMPANY -->
+
+    <article class="card">
+
+      <span class="tag">
+        COMPANY
+      </span>
+
+      <h2>
+        BioExacta Company Introduction
+      </h2>
+
+      <p>
+        Company, portfolio, product support, logistics and European
+        commercial overview.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="./index-company.html">
+          View Online
+        </a>
+
+        <a
+          class="btn secondary"
+          href="./BioExacta_Company_Introduction.pdf"
+          download>
+          Download PDF
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- CELL FREE -->
+
+    <article class="card product">
+
+      <span class="tag">
+        PRODUCT
+      </span>
+
+      <h2>
+        Cell-Free Protein Synthesis Kit
+      </h2>
+
+      <p>
+        Product information and technical material.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="./index-cellfree.html">
+          View Online
+        </a>
+
+        <a
+          class="btn secondary"
+          href="./Cell-Free.pdf"
+          download>
+          Download PDF
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- GMP -->
+
+    <article class="card product">
+
+      <span class="tag">
+        PRODUCT
+      </span>
+
+      <h2>
+        GMP-Grade Enzymes
+      </h2>
+
+      <p>
+        GMP-grade enzyme portfolio and technical material.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="./index-gmp.html">
+          View Online
+        </a>
+
+        <a
+          class="btn secondary"
+          href="./GMP.pdf"
+          download>
+          Download PDF
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- MRNA -->
+
+    <article class="card product">
+
+      <span class="tag">
+        PRODUCT
+      </span>
+
+      <h2>
+        mRNA In-vitro Synthesis
+      </h2>
+
+      <p>
+        mRNA in-vitro synthesis products and technical material.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="./index-mrna.html">
+          View Online
+        </a>
+
+        <a
+          class="btn secondary"
+          href="./mRNA.pdf"
+          download>
+          Download PDF
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- TEASER -->
+
+    <article class="card product">
+
+      <span class="tag">
+        PRODUCT
+      </span>
+
+      <h2>
+        BioExacta Product Teaser
+      </h2>
+
+      <p>
+        Quick overview of BioExacta products and capabilities.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="./index-teaser.html">
+          View Online
+        </a>
+
+        <a
+          class="btn secondary"
+          href="./Teaser.pdf"
+          download>
+          Download PDF
+        </a>
+
+      </div>
+
+    </article>
+
+
+  </section>
 
 </main>
+
+
+<footer class="footer">
+
+  BioExacta Enzymes · CPHI Milan 2026
+
+</footer>
+
 
 </body>
 </html>
