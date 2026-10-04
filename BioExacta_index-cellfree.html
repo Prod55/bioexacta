@@ -2,135 +2,133 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BioExacta - Cell-Free</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cell-Free Protein Synthesis Kit Brochure</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
 html, body {
     margin: 0;
     padding: 0;
-    background: #eeeeee;
-}
-
-body {
+    width: 100%;
+    min-height: 100%;
+    background: #f2f2f2;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#status {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+#viewer {
     width: 100%;
-    padding: 10px;
-    text-align: center;
-    background: rgba(255,255,255,0.96);
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-    color: #555;
+    padding: 12px 0 30px;
 }
 
-#pdf-container {
-    width: 100%;
-    padding: 10px 0 30px;
+.page {
+    width: min(100%, 1000px);
+    margin: 0 auto 14px;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,.15);
 }
 
-.pdf-page {
-    width: min(100%, 1200px);
-    margin: 0 auto 12px;
-    background: white;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.18);
-}
-
-.pdf-page canvas {
+.page canvas {
     display: block;
     width: 100%;
     height: auto;
 }
 
+#status {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 15px;
+}
+
 #error {
     display: none;
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 25px;
-    background: white;
+    padding: 30px 20px;
     text-align: center;
+    color: #555;
+    line-height: 1.7;
 }
 
 #error a {
     display: inline-block;
-    margin-top: 15px;
-    padding: 12px 20px;
-    background: #222;
-    color: white;
+    margin-top: 12px;
+    padding: 11px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #222;
     text-decoration: none;
-    border-radius: 6px;
+    background: #fff;
+}
+
+@media (max-width: 600px) {
+    #viewer {
+        padding-top: 0;
+    }
+
+    .page {
+        width: 100%;
+        margin-bottom: 8px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="status">正在加载 PDF，请稍候……</div>
-
-<div id="pdf-container"></div>
+<div id="status">Loading brochure…</div>
+<div id="viewer"></div>
 
 <div id="error">
-    <p>PDF 页面加载失败。</p>
-    <a href="./Cell-Free.pdf">直接打开完整 PDF</a>
+    Unable to display the brochure in this browser.<br>
+    Please open the PDF directly.
+    <br>
+    <a href="./Cell-Free.pdf">Open PDF</a>
 </div>
 
 <script type="module">
-
 import * as pdfjsLib from
-"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.min.mjs";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
-"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.mjs";
 
-const PDF_FILE = "./Cell-Free.pdf";
-
-const container = document.getElementById("pdf-container");
+const pdfUrl = "./Cell-Free.pdf";
+const viewer = document.getElementById("viewer");
 const status = document.getElementById("status");
-const errorBox = document.getElementById("error");
+const error = document.getElementById("error");
 
-async function loadPDF() {
-
+async function renderPDF() {
     try {
+        const pdf = await pdfjsLib.getDocument({
+            url: pdfUrl,
+            useWorkerFetch: true,
+            isEvalSupported: true
+        }).promise;
 
-        const loadingTask = pdfjsLib.getDocument({
-            url: PDF_FILE
-        });
+        status.textContent = `Loading ${pdf.numPages} pages…`;
 
-        const pdf = await loadingTask.promise;
-
-        status.textContent =
-            "Cell-Free · 共 " + pdf.numPages + " 页";
-
-        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
-
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
             const page = await pdf.getPage(pageNumber);
 
-            const pageBox = document.createElement("div");
-            pageBox.className = "pdf-page";
-
-            container.appendChild(pageBox);
-
-            const originalViewport =
+            const baseViewport =
                 page.getViewport({ scale: 1 });
 
-            const screenWidth =
-                Math.min(window.innerWidth, 1200);
+            const containerWidth =
+                Math.min(window.innerWidth, 1000);
 
             const scale =
-                screenWidth / originalViewport.width;
+                containerWidth / baseViewport.width;
 
             const viewport =
-                page.getViewport({ scale: scale });
+                page.getViewport({ scale });
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.className = "page";
 
             const canvas =
                 document.createElement("canvas");
@@ -140,55 +138,58 @@ async function loadPDF() {
                     alpha: false
                 });
 
-            const pixelRatio =
-                Math.min(window.devicePixelRatio || 1, 2);
+            const outputScale =
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    2
+                );
 
             canvas.width =
-                Math.floor(viewport.width * pixelRatio);
+                Math.floor(
+                    viewport.width * outputScale
+                );
 
             canvas.height =
-                Math.floor(viewport.height * pixelRatio);
+                Math.floor(
+                    viewport.height * outputScale
+                );
 
             canvas.style.width =
-                viewport.width + "px";
+                `${viewport.width}px`;
 
             canvas.style.height =
-                viewport.height + "px";
+                `${viewport.height}px`;
 
-            pageBox.appendChild(canvas);
+            wrapper.appendChild(canvas);
+            viewer.appendChild(wrapper);
 
             await page.render({
                 canvasContext: context,
                 viewport: viewport,
-                transform: [
-                    pixelRatio,
-                    0,
-                    0,
-                    pixelRatio,
-                    0,
-                    0
-                ]
+                transform:
+                    outputScale !== 1
+                    ? [
+                        outputScale,
+                        0,
+                        0,
+                        outputScale,
+                        0,
+                        0
+                      ]
+                    : null
             }).promise;
         }
 
-        status.textContent =
-            "Cell-Free · 全部 " +
-            pdf.numPages +
-            " 页已加载";
+        status.remove();
 
-    } catch (error) {
-
-        console.error(error);
-
-        status.textContent =
-            "PDF 加载失败";
-
-        errorBox.style.display = "block";
+    } catch (err) {
+        console.error(err);
+        status.remove();
+        error.style.display = "block";
     }
 }
 
-loadPDF();
-
+renderPDF();
 </script>
 
 </body>
